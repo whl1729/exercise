@@ -13,3 +13,4 @@ pearl       | Programming Pearls
 stl_src     | STL 源码剖析
 tcpl        | The C Programming Language
 tcpppl      | The C++ Programming Language
+debug_art   | The Art of Debugging with GDB, DDD, and Eclipse
