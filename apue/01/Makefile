@@ -2,7 +2,7 @@ ROOT=..
 include $(ROOT)/Make.defines
 
 PROGS = ls1 stdin2stdout stdout2stdin cp_stdio stat getc_putc \
-		print_pid shell1 strerror_perror strerror_perror2
+		print_pid shell1 strerror_perror uid_gid shell2
 
 all: $(PROGS)
 
