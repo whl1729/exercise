@@ -1,7 +1,8 @@
 ROOT=..
 include $(ROOT)/Make.defines
 
-PROGS = open lseek file_hole file_nohole io_efficiency write_exceed_limit
+PROGS = open lseek file_hole file_nohole io_efficiency write_exceed_limit \
+		multi_write
 
 all: $(PROGS)
 
