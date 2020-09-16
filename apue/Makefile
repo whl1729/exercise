@@ -1,4 +1,4 @@
-DIRS = lib 01 02 03\
+DIRS = lib 01 02 03 04\
 
 all:
 	for i in $(DIRS); do \

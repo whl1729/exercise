@@ -1,7 +1,7 @@
 ROOT=..
 include $(ROOT)/Make.defines
 
-PROGS = stat
+PROGS = stat file_type
 
 all: $(PROGS)
 
