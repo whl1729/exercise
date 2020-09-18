@@ -7,13 +7,13 @@ int main(int argc, char *argv[]) {
     int result;
 
     if (argc < 2) {
-        printf("Usage: ./stat pathname\n");
+        printf("./stat pathname\n");
         return 1;
     }
 
     memset(&buf, 0, sizeof(buf));
 
-    if ((result = stat(argv[1], &buf)) != 0) {
+    if ((result = lstat(argv[1], &buf)) != 0) {
         printf("stat error! result = %d\n", result);
         return result;
     }

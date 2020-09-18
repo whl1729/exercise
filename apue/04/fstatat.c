@@ -1,19 +1,29 @@
 #include <sys/stat.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 
 int main(int argc, char *argv[]) {
     struct stat buf;
     int result;
+    int flag = AT_SYMLINK_NOFOLLOW;
 
-    if (argc < 2) {
-        printf("Usage: ./stat pathname\n");
+    if (argc < 3) {
+        printf("Usage: ./stat pathname flag\n");
+        printf("flag:\n");
+        printf("      0 : AT_SYMLINK_NOFOLLOW\n");
+        printf("      1 : AT_SYMLINK_FOLLOW\n");
         return 1;
+    }
+
+    if (atoi(argv[2]) != 0) {
+        flag = AT_SYMLINK_FOLLOW;
     }
 
     memset(&buf, 0, sizeof(buf));
 
-    if ((result = stat(argv[1], &buf)) != 0) {
+    if ((result = fstatat(AT_FDCWD, argv[1], &buf, flag)) != 0) {
         printf("stat error! result = %d\n", result);
         return result;
     }
