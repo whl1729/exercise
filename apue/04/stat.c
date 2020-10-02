@@ -1,6 +1,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/sysmacros.h>
 
 int main(int argc, char *argv[]) {
     struct stat buf;
@@ -31,6 +32,28 @@ int main(int argc, char *argv[]) {
     printf("st_ctim: tv_sec=%ld, tv_nsec=%ld\n", buf.st_ctim.tv_sec, buf.st_ctim.tv_nsec);
     printf("st_blksize: %d\n", buf.st_blksize);
     printf("st_blocks: %ld\n", buf.st_blocks);
+
+    if (buf.st_mode & S_ISUID) {
+        printf("set-user-ID is on\n");
+    } else {
+        printf("set-user-ID is off\n");
+    }
+
+    if (buf.st_mode & S_ISGID) {
+        printf("set-group-ID is on\n");
+    } else {
+        printf("set-group-ID is off\n");
+    }
+
+    printf("dev = %d/%d", major(buf.st_dev), minor(buf.st_dev));
+
+    if (S_ISCHR(buf.st_mode) || S_ISBLK(buf.st_mode)) {
+        printf("  (%s) rdev = %d/%d",
+                (S_ISCHR(buf.st_mode))? "character" : "block",
+                major(buf.st_rdev), minor(buf.st_rdev));
+    }
+
+    printf("\n");
 
     return 0;
 }
