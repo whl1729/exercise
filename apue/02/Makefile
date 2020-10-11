@@ -1,7 +1,7 @@
 ROOT=..
 include $(ROOT)/Make.defines
 
-PROGS = conf options open_max
+PROGS = conf options open_max limits
 
 all: $(PROGS)
 
