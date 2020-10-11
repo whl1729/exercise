@@ -50,5 +50,12 @@ int main() {
     printf("_POSIX_TTY_NAME_MAX = %d\n", _POSIX_TTY_NAME_MAX);
     printf("_POSIX_TZNAME_MAX = %d\n", _POSIX_TZNAME_MAX);
 
+    printf("---------- XSI Limits ----------\n");
+    printf("NL_LANGMAX = %d\n", NL_LANGMAX);
+    printf("NZERO = %d\n", NZERO);
+    printf("_XOPEN_IOV_MAX = %d\n", _XOPEN_IOV_MAX);
+    /* The following two constants doesn't exist in Linux */
+    /* printf("_XOPEN_NAME_MAX = %d\n", _XOPEN_NAME_MAX); */
+    /* printf("_XOPEN_PATH_MAX = %d\n", _XOPEN_PATH_MAX); */
     return 0;
 }
