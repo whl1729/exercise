@@ -13,34 +13,209 @@ typedef struct map {
     int stage;
 } Map;
 
+typedef struct point {
+    int x;
+    int y;
+} Point;
+
 int read_map(Map *map);
 void play_huarongdao(Map *map);
 int read_element(char *line, const char *name, FILE *fp);
 int read_number(char *line, char **endptr);
+void get_position(Map *map, int val, Point *p);
+void play_one_turn(Map *map, int turn, Point fixed);
+void play_before_fixed(Map *map, int turn, Point fixed);
+void play_in_fixed(Map *map, int turn, Point fixed);
+void play_after_fixed(Map *map, int turn, Point fixed);
+int min(int x, int y);
+void move_one_slide(Map *map, Point target);
+void move_two_slides_in_row(Map *map, Point target);
+void move_two_slides_in_col(Map *map, Point target);
+int equals(Point a, Point b);
+void move_empty_slide(Map *map, Point target);
+void move_target_slide(Map *map, Point cur, Point target);
+void move_left(Map *map, Point empty);
+void move_right(Map *map, Point empty);
+void move_up(Map *map, Point empty);
+void move_down(Map *map, Point empty);
 
 int main() {
     Map map;
     int result;
 
     while ((result = read_map(&map)) == 0) {
-        play_huarongdao(&map);
+        if (map.stage == 6) {
+            play_huarongdao(&map);
+        }
     }
 
     return 0;
 }
 
 void play_huarongdao(Map *map) {
-    int i, j;
-    printf("map: fixed = %d, size = %d, stage = %d\n", map->fixed, map->size, map->stage);
-    for (i = 0; i < map->size; i++) {
-        for (j = 0; j < map->size; j++) {
-            printf("%d ", map->board[i][j]);
-        }
+    int turn;
+    Point fixed;
 
-        printf("\n");
+    get_position(map, map->fixed, &fixed);
+
+    printf("solution:\n");
+
+    for (turn = 0; turn < map->size; turn++) {
+        play_one_turn(map, turn, fixed);
     }
 
     printf("\n");
+}
+
+void play_one_turn(Map *map, int turn, Point fixed) {
+    if ((turn < fixed.x -1) && (turn < fixed.y -1)) {
+        play_before_fixed(map, turn, fixed);
+        return;
+    }
+
+    if ((turn > fixed.x) && (turn > fixed.y)) {
+        play_after_fixed(map, turn, fixed);
+        return;
+    }
+
+    play_in_fixed(map, turn, fixed);
+}
+
+void play_before_fixed(Map *map, int turn, Point fixed) {
+    int i;
+    Point target;
+
+    target.x = turn;
+
+    for (i = turn; i < map->size - 2; i++) {
+        target.y = i;
+        move_one_slide(map, target);
+    }
+
+    target.y = map->size - 2;
+    move_two_slides_in_row(map, target);
+
+    target.y = turn;
+
+    for (i = turn+1; i < map->size - 2; i++) {
+        target.x = i;
+        printf("move (%d, %d)\n", target.x, target.y);
+        move_one_slide(map, target);
+    }
+
+    target.x = map->size - 2;
+    move_two_slides_in_col(map, target);
+}
+
+void move_one_slide(Map *map, Point target) {
+    Point cur;
+    int elem;
+
+    elem = target.x * map->size + target.y + 1;
+
+    get_position(map, elem, &cur);
+
+    if (equals(cur, target)) {
+        return;
+    }
+
+    move_empty_slide(map, target);
+    move_target_slide(map, cur, target);
+}
+
+void move_target_slide(Map *map, Point cur, Point target) {
+    // cur is in left
+    if (cur.x < target.x) {
+        return;
+    }
+
+    if (cur.x == target.x) {
+        return;
+    }
+
+    // cur is in right
+    if (cur.x > target.x) {
+        return;
+    }
+}
+
+void move_empty_slide(Map *map, Point target) {
+    Point empty;
+
+    get_position(map, 0, &empty);
+
+    while (empty.x < target.x) {
+        move_down(map, empty);
+        empty.x++;
+    }
+
+    while (empty.x > target.x) {
+        move_up(map, empty);
+        empty.x--;
+    }
+
+    while (empty.y < target.y) {
+        move_right(map, empty);
+        empty.y++;
+    }
+
+    while (empty.y > target.y) {
+        move_left(map, empty);
+        empty.y--;
+    }
+}
+
+void move_left(Map *map, Point empty) {
+    map->board[empty.x][empty.y] = map->board[empty.x][empty.y - 1];
+    map->board[empty.x][empty.y - 1] = 0;
+    printf("L");
+}
+
+void move_right(Map *map, Point empty) {
+    map->board[empty.x][empty.y] = map->board[empty.x][empty.y + 1];
+    map->board[empty.x][empty.y + 1] = 0;
+    printf("R");
+}
+
+void move_up(Map *map, Point empty) {
+    map->board[empty.x][empty.y] = map->board[empty.x - 1][empty.y];
+    map->board[empty.x - 1][empty.y] = 0;
+    printf("U");
+}
+
+void move_down(Map *map, Point empty) {
+    map->board[empty.x][empty.y] = map->board[empty.x + 1][empty.y];
+    map->board[empty.x + 1][empty.y] = 0;
+    printf("D");
+}
+
+void move_two_slides_in_row(Map *map, Point target) {
+
+}
+
+void move_two_slides_in_col(Map *map, Point target) {
+
+}
+
+void play_in_fixed(Map *map, int turn, Point fixed) {
+
+}
+
+void play_after_fixed(Map *map, int turn, Point fixed) {
+
+}
+
+void get_position(Map *map, int val, Point *p) {
+    int i, j;
+    for (int i = 0; i < map->size; i++) {
+        for (int j = 0; j < map->size; j++) {
+            if (map->board[i][j] == val) {
+                p->x = i;
+                p->y = j;
+                break;
+            }
+        }
+    }
 }
 
 int read_map(Map *map) {
@@ -103,8 +278,6 @@ int read_map(Map *map) {
         return -1;
     }
 
-    printf("fixed: %d\n", map->fixed);
-
     // read size
     if ((map->size = read_element(line, "size", fp)) < 0) {
         printf("read size failed!\n");
@@ -113,8 +286,6 @@ int read_map(Map *map) {
         return -1;
     }
 
-    printf("size: %d\n", map->size);
-
     // read stage
     if ((map->stage = read_element(line, "stage", fp)) < 0) {
         printf("read stage failed!\n");
@@ -122,8 +293,6 @@ int read_map(Map *map) {
         free(line);
         return -1;
     }
-
-    printf("stage: %d\n", map->stage);
 
     // set map.board
     pos = 0;
@@ -175,4 +344,16 @@ int read_number(char *line, char **endptr) {
     }
 
     return num;
+}
+
+int min(int x, int y) {
+    return (x < y ? x : y);
+}
+
+int equals(Point a, Point b) {
+    if (a.x == b.x && a.y == b.y) {
+        return 1;
+    }
+
+    return 0;
 }
