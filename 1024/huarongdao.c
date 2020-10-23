@@ -23,21 +23,31 @@ void play_huarongdao(Map *map);
 int read_element(char *line, const char *name, FILE *fp);
 int read_number(char *line, char **endptr);
 void get_position(Map *map, int val, Point *p);
+
 void play_one_turn(Map *map, int turn, Point fixed);
 void play_before_fixed(Map *map, int turn, Point fixed);
 void play_in_fixed(Map *map, int turn, Point fixed);
 void play_after_fixed(Map *map, int turn, Point fixed);
-int min(int x, int y);
-void move_one_slide(Map *map, Point target);
+
+void move_one_slide_in_row(Map *map, Point target);
+void move_one_slide_in_col(Map *map, Point target);
 void move_two_slides_in_row(Map *map, Point target);
 void move_two_slides_in_col(Map *map, Point target);
-int equals(Point a, Point b);
+void move_one_step_in_row(Map *map, Point target, Point *cur);
 void move_empty_slide(Map *map, Point target);
-void move_target_slide(Map *map, Point cur, Point target);
+void move_target_from_down(Map *map, Point target, Point cur);
+void move_target_from_left(Map *map, Point target, Point cur);
+void move_target_from_right(Map *map, Point target, Point cur);
+
 void move_left(Map *map, Point empty);
 void move_right(Map *map, Point empty);
 void move_up(Map *map, Point empty);
 void move_down(Map *map, Point empty);
+
+void right_rotate(Map *map, Point empty);
+
+int equals(Point a, Point b);
+int min(int x, int y);
 
 int main() {
     Map map;
@@ -89,7 +99,7 @@ void play_before_fixed(Map *map, int turn, Point fixed) {
 
     for (i = turn; i < map->size - 2; i++) {
         target.y = i;
-        move_one_slide(map, target);
+        move_one_slide_in_row(map, target);
     }
 
     target.y = map->size - 2;
@@ -100,19 +110,22 @@ void play_before_fixed(Map *map, int turn, Point fixed) {
     for (i = turn+1; i < map->size - 2; i++) {
         target.x = i;
         printf("move (%d, %d)\n", target.x, target.y);
-        move_one_slide(map, target);
+        move_one_slide_in_col(map, target);
     }
 
     target.x = map->size - 2;
     move_two_slides_in_col(map, target);
 }
 
-void move_one_slide(Map *map, Point target) {
+void move_one_slide_in_col(Map *map, Point target) {
+
+}
+
+void move_one_slide_in_row(Map *map, Point target) {
     Point cur;
     int elem;
 
     elem = target.x * map->size + target.y + 1;
-
     get_position(map, elem, &cur);
 
     if (equals(cur, target)) {
@@ -120,23 +133,57 @@ void move_one_slide(Map *map, Point target) {
     }
 
     move_empty_slide(map, target);
-    move_target_slide(map, cur, target);
+    get_position(map, elem, &cur);
+
+    if (cur.y == target.y) {
+        move_target_from_down(map, target, cur);
+    } else if (cur.y < target.y) {
+        move_target_from_left(map, target, cur);
+    } else {
+        move_target_from_right(map, target, cur);
+    }
 }
 
-void move_target_slide(Map *map, Point cur, Point target) {
-    // cur is in left
-    if (cur.x < target.x) {
-        return;
-    }
+void move_target_from_down(Map *map, Point target, Point cur) {
+    Point empty;
 
-    if (cur.x == target.x) {
-        return;
-    }
+    move_empty_slide(map, cur);
 
-    // cur is in right
-    if (cur.x > target.x) {
-        return;
+    empty.x = cur.x;
+    empty.y = cur.y;
+    cur.x--;
+
+    while (!equals(cur, target)) {
+        right_rotate(map, empty);
+        cur.x--;
+        empty.x--;
     }
+}
+
+
+void right_rotate(Map *map, Point empty) {
+    map->board[empty.x][empty.y] = map->board[empty.x][empty.y+1];
+    map->board[empty.x][empty.y+1] = map->board[empty.x-1][empty.y+1];
+    map->board[empty.x-1][empty.y+1] = map->board[empty.x-2][empty.y+1];
+    map->board[empty.x-2][empty.y+1] = map->board[empty.x-2][empty.y];
+    map->board[empty.x-2][empty.y] = map->board[empty.x-1][empty.y];
+    map->board[empty.x-1][empty.y] = 0;
+}
+
+void move_target_from_left(Map *map, Point target, Point cur) {
+
+}
+
+void move_target_from_right(Map *map, Point target, Point cur) {
+
+}
+
+void move_one_step_in_row(Map *map, Point target, Point *cur) {
+    int elem;
+
+
+    elem = target.x * map->size + target.y + 1;
+    get_position(map, elem, cur);
 }
 
 void move_empty_slide(Map *map, Point target) {
