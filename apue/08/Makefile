@@ -3,7 +3,8 @@ include $(ROOT)/Make.defines
 
 PROGS = getpid fork vfork abort divide_zero exit orphan zombie \
 		wait_no_child various_exit waitpid twice_fork waitid \
-		wait4 race echoall exec setuid mypasswd
+		wait4 race echoall exec setuid mypasswd exec_interpreter_file \
+		mysystem test_system
 
 all: clean $(PROGS)
 
