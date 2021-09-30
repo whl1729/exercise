@@ -1,3 +1,6 @@
 [submodule "use"]
 	path = use
 	url = git@github.com:whl1729/use.git
+[submodule "apue"]
+	path = apue
+	url = git@github.com:whl1729/apue.git
