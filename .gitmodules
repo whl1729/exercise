@@ -7,3 +7,6 @@
 [submodule "webglpg"]
 	path = webglpg
 	url = git@github.com:whl1729/webglpg.git
+[submodule "refactoring"]
+	path = refactoring
+	url = git@github.com:whl1729/refactoring.git
