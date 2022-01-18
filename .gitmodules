@@ -4,3 +4,6 @@
 [submodule "apue"]
 	path = apue
 	url = git@github.com:whl1729/apue.git
+[submodule "webglpg"]
+	path = webglpg
+	url = git@github.com:whl1729/webglpg.git
