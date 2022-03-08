@@ -10,3 +10,6 @@
 [submodule "refactoring"]
 	path = refactoring
 	url = git@github.com:whl1729/refactoring.git
+[submodule "mysql-must-know"]
+	path = mysql-must-know
+	url = git@github.com:whl1729/mysql-must-know.git
