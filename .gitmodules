@@ -13,3 +13,6 @@
 [submodule "mysql-must-know"]
 	path = mysql-must-know
 	url = git@github.com:whl1729/mysql-must-know.git
+[submodule "play-webpack"]
+	path = play-webpack
+	url = git@github.com:whl1729/play-webpack.git
