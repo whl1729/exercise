@@ -16,3 +16,6 @@
 [submodule "play-webpack"]
 	path = play-webpack
 	url = git@github.com:whl1729/play-webpack.git
+[submodule "eslint-demo"]
+	path = eslint-demo
+	url = git@github.com:whl1729/eslint-demo.git
