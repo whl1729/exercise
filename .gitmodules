@@ -19,3 +19,6 @@
 [submodule "eslint-demo"]
 	path = eslint-demo
 	url = git@github.com:whl1729/eslint-demo.git
+[submodule "vuejs-guide"]
+	path = vuejs-guide
+	url = git@github.com:whl1729/vuejs-guide.git
