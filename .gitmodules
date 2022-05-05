@@ -22,3 +22,6 @@
 [submodule "vuejs-guide"]
 	path = vuejs-guide
 	url = git@github.com:whl1729/vuejs-guide.git
+[submodule "go-tutorial"]
+	path = go-tutorial
+	url = git@github.com:whl1729/go-tutorial.git
