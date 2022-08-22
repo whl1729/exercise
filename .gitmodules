@@ -25,3 +25,6 @@
 [submodule "go-tutorial"]
 	path = go-tutorial
 	url = git@github.com:whl1729/go-tutorial.git
+[submodule "you-dont-know-js"]
+	path = you-dont-know-js
+	url = git@github.com:whl1729/you-dont-know-js.git
