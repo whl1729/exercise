@@ -1,33 +1,33 @@
 [submodule "use"]
 	path = use
-	url = git@github.com:whl1729/use.git
+	url = git@gitee.com:whl1729/use.git
 [submodule "apue"]
 	path = apue
-	url = git@github.com:whl1729/apue.git
+	url = git@gitee.com:whl1729/apue.git
 [submodule "webglpg"]
 	path = webglpg
-	url = git@github.com:whl1729/webglpg.git
+	url = git@gitee.com:whl1729/webglpg.git
 [submodule "refactoring"]
 	path = refactoring
-	url = git@github.com:whl1729/refactoring.git
+	url = git@gitee.com:whl1729/refactoring.git
 [submodule "mysql-must-know"]
 	path = mysql-must-know
-	url = git@github.com:whl1729/mysql-must-know.git
+	url = git@gitee.com:whl1729/mysql-must-know.git
 [submodule "play-webpack"]
 	path = play-webpack
-	url = git@github.com:whl1729/play-webpack.git
+	url = git@gitee.com:whl1729/play-webpack.git
 [submodule "eslint-demo"]
 	path = eslint-demo
-	url = git@github.com:whl1729/eslint-demo.git
+	url = git@gitee.com:whl1729/eslint-demo.git
 [submodule "vuejs-guide"]
 	path = vuejs-guide
-	url = git@github.com:whl1729/vuejs-guide.git
+	url = git@gitee.com:whl1729/vuejs-guide.git
 [submodule "go-tutorial"]
 	path = go-tutorial
-	url = git@github.com:whl1729/go-tutorial.git
+	url = git@gitee.com:whl1729/go-tutorial.git
 [submodule "you-dont-know-js"]
 	path = you-dont-know-js
-	url = git@github.com:whl1729/you-dont-know-js.git
+	url = git@gitee.com:whl1729/you-dont-know-js.git
 [submodule "3-easy-pieces"]
 	path = 3-easy-pieces
 	url = git@gitee.com:whl1729/3-easy-pieces.git
