@@ -28,3 +28,6 @@
 [submodule "you-dont-know-js"]
 	path = you-dont-know-js
 	url = git@github.com:whl1729/you-dont-know-js.git
+[submodule "3-easy-pieces"]
+	path = 3-easy-pieces
+	url = git@gitee.com:whl1729/3-easy-pieces.git
