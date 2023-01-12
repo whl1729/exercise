@@ -31,3 +31,6 @@
 [submodule "3-easy-pieces"]
 	path = 3-easy-pieces
 	url = git@gitee.com:whl1729/3-easy-pieces.git
+[submodule "fluent-python"]
+	path = fluent-python
+	url = git@gitee.com:whl1729/fluent-python.git
